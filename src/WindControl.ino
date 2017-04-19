@@ -25,6 +25,7 @@ void loop() {
   //int sensorValue = analogRead(A1);
   //Serial.println(sensorValue);
 
+// s'arrete lorsque la roue a fait 1 tour complet
   while(i + j != 2){
     int BP = digitalRead(4);        // Lecture du capteur
 
@@ -36,10 +37,12 @@ void loop() {
       j = 1;
     }
     Serial.println(i + j);
-    t = t + TIME;
+    t = t + TIME; // temps passé pour faire un tour complet
     delay(TIME);
   }
 
+
+// Si temps court : ya du vent
   if(t < 200){
     leds.setColorRGB(0, 15, 15, 0);
     Serial.print("t = ");
@@ -47,6 +50,7 @@ void loop() {
     Serial.println("Putain ya du vent !");
     count = count + 1;
     delay(5000);
+    // Si le vent dure un certain temps : on stop tout
     if(count >= 5){
       leds.setColorRGB(0, 255, 0, 0);
       Serial.println("STOOOOOOOOOOOOOP !");
