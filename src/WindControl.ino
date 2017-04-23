@@ -8,7 +8,7 @@ ChainableLED leds(2,3, NUM_LEDS);
 
 
 int i,j,count,turns;
-int t;
+long t;
 
 void setup() {
   Serial.begin(9600);
@@ -24,8 +24,7 @@ void loop() {
   j = 0;
   turns = 0;
   t = 0;
-  //int sensorValue = analogRead(A1);
-  //Serial.println(sensorValue);
+
 
 // s'arrete lorsque la roue a fait 1 tour complet
   while(turns < 10){
@@ -54,7 +53,7 @@ void loop() {
       j = 0;
     }
 
-    t = t + TIME; // temps passé pour faire un tour complet
+    t = t + TIME; // temps passé pour faire 10 tours complets
     delay(TIME);
 
     Serial.println(t);
@@ -68,11 +67,13 @@ void loop() {
     Serial.println(t);
     Serial.println("Putain ya du vent !");
     count = count + 1;
-    delay(5000);
+    delay(500);
     // Si le vent dure un certain temps : on stop tout
-    if(count >= 5){
+    if(count >= 2){
       leds.setColorRGB(0, 255, 0, 0);
-      Serial.println("STOOOOOOOOOOOOOP !");
+      int sensorValue = analogRead(A1);
+      Serial.print("Mise en securite de la parabole en :");
+      Serial.println(sensorValue);
       count = 0;
       delay(5000);
     }
