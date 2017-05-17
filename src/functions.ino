@@ -12,7 +12,7 @@ float windDirection(){
 
 
   for (int i = 0; i < 16; ++i) {
-    if (gyroValues[i]==windValue) {
+    if (windValue <= gyroValues[i] + 3 && windValue >= gyroValues[i] - 3) {
       indice = i;
       Serial.print("i  = ");
       Serial.println(i);
